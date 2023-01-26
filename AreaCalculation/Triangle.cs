@@ -27,7 +27,6 @@
             return Math.Sqrt(p * (p - _sideA) * (p - _sideB) * (p - _sideC));
         }
 
-        //Check for rightness of a triangle
         public bool IsRightTriangle()
         {
             return Math.Pow(_sideA, 2) + Math.Pow(_sideB, 2) == Math.Pow(_sideC, 2) ||
@@ -35,13 +34,11 @@
                    Math.Pow(_sideB, 2) + Math.Pow(_sideC, 2) == Math.Pow(_sideA, 2);
         }
 
-        //Determining the existence of a triangle
         private bool IsTriangle()
         {
             return _sideA + _sideB > _sideC && _sideA + _sideC > _sideB && _sideB + _sideC > _sideA;
         }
 
-        //Check for positive sides of a triangle
         private bool IsPositiveSides(double sideA, double sideB, double sideC)
         {
             return sideA > 0 && sideB > 0 && sideC > 0;
