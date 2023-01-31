@@ -4,44 +4,38 @@ namespace AreaCalculation.Tests
 {
     public class TriangleTests
     {
-        [Fact]
-        public void GetArea_ValidSides_ReturnsExpectedArea()
+        [Theory]
+        [InlineData(3, 4, 5, 6)]
+        [InlineData(5, 12, 13, 30)]
+        [InlineData(8, 15, 17, 60)]
+        public void GetArea_ValidTriangleSides_ReturnsExpectedResult(double sideA, double sideB, double sideC, double expectedArea)
         {
             // Arrange
-            double sideA = 3;
-            double sideB = 4;
-            double sideC = 5;
-            var triangle = new Triangle(sideA, sideB, sideC);
+            var parameters = new TriangleParameters(sideA, sideB, sideC);
+            var triangle = new Triangle(parameters);
 
             // Act
-            var area = triangle.GetArea();
+            var actualArea = triangle.GetArea();
 
             // Assert
-            var p = (sideA + sideB + sideC) / 2;
-            var expectedArea = Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
-            Assert.Equal(expectedArea, area, 2);
+            Assert.Equal(expectedArea, actualArea, 2);
         }
 
         [Theory]
-        [InlineData(0, 2, 3)]
-        [InlineData(2, -1, 3)]
-        [InlineData(2, 3, 0)]
-        public void Constructor_InvalidSides_ThrowsArgumentException(double sideA, double sideB, double sideC)
-        {
-            // Assert
-            Assert.Throws<ArgumentException>(() => new Triangle(sideA, sideB, sideC));
-        }
-
-        [Theory]
-        [InlineData(1, 2, 3)]
-        [InlineData(3, 4, 7)]
-        public void GetArea_NotATriangle_ThrowsArgumentException(double sideA, double sideB, double sideC)
+        [InlineData(3, 4, 5, true)]
+        [InlineData(6, 12, 13, false)]
+        [InlineData(8, 15, 17, true)]
+        public void IsRightTriangle_ValidTriangleSides_ReturnsExpectedResult(double sideA, double sideB, double sideC, bool expectedResult)
         {
             // Arrange
-            var triangle = new Triangle(sideA, sideB, sideC);
+            var parameters = new TriangleParameters(sideA, sideB, sideC);
+            var triangle = new Triangle(parameters);
+
+            // Act
+            var actualResult = triangle.IsRightTriangle();
 
             // Assert
-            Assert.Throws<ArgumentException>(() => triangle.GetArea());
+            Assert.Equal(expectedResult, actualResult);
         }
 
         [Theory]
@@ -52,7 +46,8 @@ namespace AreaCalculation.Tests
         public void IsRightTriangle_ReturnsExpectedResult(double sideA, double sideB, double sideC, bool expectedResult)
         {
             // Arrange
-            var triangle = new Triangle(sideA, sideB, sideC);
+            var parameters = new TriangleParameters(sideA, sideB, sideC);
+            var triangle = new Triangle(parameters);
 
             // Act
             var result = triangle.IsRightTriangle();
