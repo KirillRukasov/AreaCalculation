@@ -4,28 +4,21 @@ namespace AreaCalculation.Tests
 {
     public class CircleTests
     {
-        [Fact]
-        public void GetArea_ValidRadius_ReturnsExpectedArea()
+        [Theory]
+        [InlineData(5, 78.539816)]
+        [InlineData(10, 314.159265359)]
+        [InlineData(100, 31415.926535897932)]
+        public void GetArea_ValidRadius_ReturnsExpectedResult(double radius, double expectedArea)
         {
             // Arrange
-            double radius = 2;
-            var circle = new Circle(radius);
+            var parameters = new CircleParameters(radius);
+            var circle = new Circle(parameters);
 
             // Act
-            var area = circle.GetArea();
+            var actualArea = circle.GetArea();
 
             // Assert
-            var expectedArea = Math.PI * Math.Pow(radius, 2);
-            Assert.Equal(expectedArea, area, 2);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        public void Constructor_InvalidRadius_ThrowsArgumentException(double radius)
-        {
-            // Assert
-            Assert.Throws<ArgumentException>(() => new Circle(radius));
+            Assert.Equal(expectedArea, actualArea, 5);
         }
     }
 }

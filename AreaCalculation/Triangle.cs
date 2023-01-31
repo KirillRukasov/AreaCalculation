@@ -1,23 +1,22 @@
-﻿namespace AreaCalculation
+﻿using AreaCalculator.Interfaces;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("AreaCalculation.Tests")]
+namespace AreaCalculation
 {
-    public class Triangle : AbstractFigure
+    internal class Triangle : IFigure
     {
         private double _sideA;
         private double _sideB;
         private double _sideC;
 
-        public Triangle(double sideA, double sideB, double sideC)
+        public Triangle(TriangleParameters parameters)
         {
-            if (!IsPositiveSides(sideA, sideB, sideC))
-            {
-                throw new ArgumentException("Sides must be positive");
-            }
-            _sideA = sideA;
-            _sideB = sideB;
-            _sideC = sideC;
+            _sideA = parameters.SideA;
+            _sideB = parameters.SideB;
+            _sideC = parameters.SideC;
         }
-
-        public override double GetArea()
+        public double GetArea()
         {
             if (!IsTriangle())
             {
@@ -37,11 +36,6 @@
         private bool IsTriangle()
         {
             return _sideA + _sideB > _sideC && _sideA + _sideC > _sideB && _sideB + _sideC > _sideA;
-        }
-
-        private bool IsPositiveSides(double sideA, double sideB, double sideC)
-        {
-            return sideA > 0 && sideB > 0 && sideC > 0;
         }
     }
 }

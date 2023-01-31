@@ -1,24 +1,18 @@
-﻿namespace AreaCalculation
+﻿using AreaCalculator.Interfaces;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("AreaCalculation.Tests")]
+namespace AreaCalculation
 {
-    public class Circle : AbstractFigure
+    internal class Circle : IFigure
     {
         private double _radius;
 
-        public Circle(double radius)
+        public Circle(CircleParameters parameters)
         {
-            if (!IsPositiveRadius(radius))
-            {
-                throw new ArgumentException("Radius must be positive");
-            }
-            _radius = radius;
+            _radius = parameters.Radius;
         }
-
-        private bool IsPositiveRadius(double radius)
-        {
-            return radius > 0;
-        }
-
-        public override double GetArea()
+        public double GetArea()
         {
             return Math.PI * Math.Pow(_radius, 2);
         }
