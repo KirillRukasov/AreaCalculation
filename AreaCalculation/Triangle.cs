@@ -1,10 +1,8 @@
 ﻿using AreaCalculator.Interfaces;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("AreaCalculation.Tests")]
 namespace AreaCalculation
 {
-    internal class Triangle : IFigure
+    public class Triangle : IFigure
     {
         private double _sideA;
         private double _sideB;
